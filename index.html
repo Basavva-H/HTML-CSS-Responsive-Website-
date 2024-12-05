@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        header {
+            background-color: #444;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 2rem auto;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .result {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie Booking Website</h1>
+    </header>
+    <div class="container">
+        <form id="bookingForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+
+            <label for="movie">Select a Movie:</label>
+            <select id="movie" required>
+                <option value="">-- Select a Movie --</option>
+                <option value="200">Pushpa2 - ₹200</option>
+                <option value="150">Amaran - ₹150</option>
+                <option value="300">Bhairathi Ranagal - ₹300</option>
+            </select>
+
+            <label for="tickets">Number of Tickets:</label>
+            <input type="number" id="tickets" min="1" placeholder="Enter number of tickets" required>
+
+            <label for="date">Select Show Date:</label>
+            <input type="date" id="date" required>
+
+            <label for="time">Select Show Time:</label>
+            <select id="time" required>
+                <option value="">-- Select Time --</option>
+                <option value="Morning">10:00 AM</option>
+                <option value="Afternoon">2:00 PM</option>
+                <option value="Evening">6:00 PM</option>
+                <option value="Night">9:00 PM</option>
+            </select>
+
+            <button type="button" onclick="calculateTotal()">Book Tickets</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const movie = document.getElementById('movie');
+            const tickets = document.getElementById('tickets').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const result = document.getElementById('result');
+
+            if (!name || !email || !phone || !movie.value || tickets <= 0 || !date || !time) {
+                result.textContent = "Please fill in all fields correctly.";
+                result.style.color = "red";
+                return;
+            }
+
+            const ticketPrice = parseInt(movie.value);
+            const total = ticketPrice * tickets;
+
+            result.textContent = `Thank you, ${name}! You have booked ${tickets} ticket(s) for "${movie.options[movie.selectedIndex].text}" on ${date} at ${time}. Total Price: ₹${total}.`;
+            result.style.color = "#4CAF50";
+        }
+    </script>
+</body>
+</html>
